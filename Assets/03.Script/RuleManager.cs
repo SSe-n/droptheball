@@ -29,9 +29,4 @@ public class RuleManager : MonoBehaviour
             _balls.Add(go[i]);
         }
     }
-
-    public void Pause(int t)
-    {
-        Time.timeScale = t;
-    }
 }

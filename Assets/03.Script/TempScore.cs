@@ -9,6 +9,6 @@ public class TempScore : MonoBehaviour
 
     void Update()
     {
-        _scoreTxt.text = RuleManager._instance._score.ToString();
+        _scoreTxt.text = "Score : " + RuleManager._instance._score.ToString();
     }
 }

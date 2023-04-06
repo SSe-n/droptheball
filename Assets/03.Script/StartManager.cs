@@ -9,7 +9,6 @@ public class StartManager : MonoBehaviour
     {
         if(PlayerPrefs.HasKey("IsFirst"))
         {
-            Debug.Log("has key");
             guide.SetActive(false);
         }
     }
