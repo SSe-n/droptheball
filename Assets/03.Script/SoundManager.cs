@@ -25,6 +25,7 @@ public class SoundManager : MonoBehaviour
         
     }
 
+   
     public void SfxPlay(Sfx type)
     {
         Debug.Log("³ë·¡");
@@ -59,4 +60,21 @@ public class SoundManager : MonoBehaviour
         sfxPlayer[sfxCursor].Play();
         sfxCursor = (sfxCursor + 1) % sfxPlayer.Length;
     }
+    public void BgmOn()
+    {
+        bgmPlayer.mute = false;
+    }
+    public void BgmOff()
+    {
+        bgmPlayer.mute = true;
+    }
+    public void SfxOn()
+    {
+        sfxPlayer[sfxCursor].mute = false; ;
+    }
+    public void SfxOnOff()
+    {
+        sfxPlayer[sfxCursor].mute = true;
+    }
+
 }
