@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 209885415e090d54aad7e30f7fab3257
+=======
+guid: a16e903e571a2c541af0655dda02ac00
+>>>>>>> aad1621 (최종)
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

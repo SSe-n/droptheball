@@ -16,15 +16,27 @@ public class MoveAroundObject : MonoBehaviour
 
     void Update()
     {  
+<<<<<<< HEAD
         if (Input.touchCount > 0 && Time.timeScale != 0) // 터치 입력이 있을 경우
         {
             Touch touch = Input.GetTouch(0); // 첫 번째 터치 입력
+=======
+        if (Input.touchCount > 0) // 터치 입력이 있을 경우
+        {
+            Touch touch = Input.GetTouch(0); // 첫 번째 터치 입력
+            if (touch.position.y <= 950) {
+            //Debug.Log("Touch Position: " + touch.position);
+>>>>>>> aad1621 (최종)
             if (touch.phase == TouchPhase.Moved) // 터치가 움직였을 때
             {
                 float deltaRotation = touch.deltaPosition.x * rotationSpeed; // 회전할 각도 계산
                 currentRotation += deltaRotation; // 현재 회전 각도 업데이트
                 transform.rotation = Quaternion.Euler(55.0f , currentRotation, 0.0f); // y축 회전
             }
+<<<<<<< HEAD
+=======
+            }
+>>>>>>> aad1621 (최종)
         }   
         Vector3 position = _target.position - transform.forward * _distanceFromTarget;//타겟 거리
         position.y = 30f; //카메라 높이
