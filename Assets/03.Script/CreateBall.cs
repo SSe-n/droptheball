@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class CreateBall : MonoBehaviour
 {
-<<<<<<< HEAD
-    public GameObject _effectPrefab;
-    public Transform _effectPos;
-
-    bool _isReady = false;                  // 공을 떨어트릴 준비가 됬는지 확인
-=======
     static CreateBall _unique;
     public static CreateBall _instance
     {
@@ -19,7 +13,6 @@ public class CreateBall : MonoBehaviour
     public Transform _effectPos;
 
     public bool _isReady = false;                  // 공을 떨어트릴 준비가 됬는지 확인
->>>>>>> aad1621 (理쒖쥌)
     bool _isZone = false;
 
     LayerMask lMask;                        // touchZone의 레이어 마스크
@@ -33,10 +26,7 @@ public class CreateBall : MonoBehaviour
         _mainCam = Camera.main;
         lMask = 1 << LayerMask.NameToLayer("TouchZone");
         _time = RuleManager._reloadTime;
-<<<<<<< HEAD
-=======
         _unique = this;
->>>>>>> aad1621 (理쒖쥌)
     }
     void Update()
     {

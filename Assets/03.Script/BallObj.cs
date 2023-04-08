@@ -7,15 +7,10 @@ public class BallObj : MonoBehaviour
     public static ParticleSystem effect;
     public int _rank;
     bool _isGrowing;
-<<<<<<< HEAD
-    float _time;
-    bool _isTouch;
-=======
     bool _firstGrow;
     float _time;
     bool _isTouch;
     Vector3 _beforeScale;
->>>>>>> aad1621 (최종)
     //float _growSpeed = 1;
 
     private void Awake()
@@ -37,24 +32,11 @@ public class BallObj : MonoBehaviour
             _isGrowing = true;
             return;
         }
-<<<<<<< HEAD
-        gameObject.transform.localScale = Vector3.one * _rank;
-=======
         transform.localScale = Vector3.one * (_rank / 2f);
->>>>>>> aad1621 (최종)
     }
 
     void Growing()
     {
-<<<<<<< HEAD
-        _time += Time.deltaTime;
-        transform.localScale = (Vector3.one * (_rank - 1)) * (1f + _time * 0.5f);
-
-        if (transform.localScale.x >= _rank)
-        {
-            _time = 0;
-            _isGrowing = false;
-=======
         if (!_firstGrow)
         {
             _firstGrow = true;
@@ -68,7 +50,6 @@ public class BallObj : MonoBehaviour
             _time = _rank / 2f;
             _isGrowing = false;
             _firstGrow = false;
->>>>>>> aad1621 (최종)
         }
     }
     private void OnTriggerStay(Collider other)
@@ -78,11 +59,8 @@ public class BallObj : MonoBehaviour
             BallObj temp = other.GetComponent<BallObj>();
             if (_rank == temp._rank)
             {
-<<<<<<< HEAD
-=======
                 if (CreateBall._instance._isReady)
                     return;
->>>>>>> aad1621 (최종)
                 if (_rank == RuleManager._maxLevel)
                     return;
                 Destroy(other.gameObject);

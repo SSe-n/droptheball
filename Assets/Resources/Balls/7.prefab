@@ -46,11 +46,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-<<<<<<< HEAD
-  m_Radius: 0.54
-=======
   m_Radius: 0.6
->>>>>>> aad1621 (최종)
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6321569889473887909
 Rigidbody:
