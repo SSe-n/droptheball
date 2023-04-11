@@ -12,8 +12,8 @@ public class CreateBall : MonoBehaviour
     public GameObject _effectPrefab;
     public Transform _effectPos;
 
-    public bool _isReady = false;                  // 공을 떨어트릴 준비가 됬는지 확인
-    bool _isZone = false;
+    public bool _isReady = false;           // 공을 떨어트릴 준비가 됬는지 확인
+    bool _isZone = false;                   // 공의 생성지점 한정
 
     LayerMask lMask;                        // touchZone의 레이어 마스크
     Camera _mainCam;
@@ -31,15 +31,18 @@ public class CreateBall : MonoBehaviour
     void Update()
     {
         _time += Time.deltaTime;
+        // 공을 들고 있지 않았을 때 버튼다운 시
         if (Input.GetMouseButtonDown(0) && _time >= RuleManager._reloadTime && Time.timeScale != 0)
         {
             ReadyBall();
         }
+        // 공을 들고 있을 때 버튼업 시
         else if (Input.GetMouseButtonUp(0) && _isReady)
         {
             ThrowBall();
             _time = 0;
         }
+        // 공을 들고있을 때
         if (_isReady)
         {
            _nowball.transform.position = GetScreenPoint();
@@ -89,7 +92,7 @@ public class CreateBall : MonoBehaviour
         BallObj.effect = instantEffect;
     }
     /// <summary>
-    /// 터치좌표를 유니티공간의 좌표로 변환시킨다.
+    /// 터치좌표를 유니티공간의 좌표(y + 5)로 변환시킨다.
     /// </summary>
     /// <returns>터치좌표 or 마지막으로 Zone에 터치된 좌표</returns>
     Vector3 GetScreenPoint()
@@ -100,6 +103,7 @@ public class CreateBall : MonoBehaviour
         if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, lMask))
         {
             pos = rayHit.point;
+            pos.y += 5;
             _lastPosition = pos;
             _isZone = true;
         }
@@ -107,7 +111,10 @@ public class CreateBall : MonoBehaviour
             pos = _lastPosition;
         return pos;
     }
-
+    /// <summary>
+    /// 스폰되는 공의 레벨 확률
+    /// </summary>
+    /// <returns></returns>
     int LevelPercent()
     {
         int percent = Random.Range(1, 11);

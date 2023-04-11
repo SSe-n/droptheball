@@ -5,12 +5,14 @@ using UnityEngine;
 public class BallObj : MonoBehaviour
 {
     public static ParticleSystem effect;
-    public int _rank;
-    bool _isGrowing;
-    bool _firstGrow;
-    float _time;
-    bool _isTouch;
-    Vector3 _beforeScale;
+    public int _rank;           // 공의 레벨
+    public int _value;          // 공이 합병할때 높은숫자의 공으로 합병
+
+    bool _isGrowing;            // 공이 성장중인가
+    bool _firstGrow;            // 공의 성장할때의 포지션 한정
+    float _time;                // 공의 성장시간
+    Vector3 _beforeScale;       // 공의 성장전 크기 저장
+    bool _isTouch;              // 공이 오브젝트와 충돌하였는가
     //float _growSpeed = 1;
 
     private void Awake()
@@ -32,6 +34,7 @@ public class BallObj : MonoBehaviour
             _isGrowing = true;
             return;
         }
+        _value = Random.Range(0, int.MaxValue);
         transform.localScale = Vector3.one * (_rank / 2f);
     }
 
@@ -57,7 +60,7 @@ public class BallObj : MonoBehaviour
         if (other.gameObject.tag == "Ball")
         {
             BallObj temp = other.GetComponent<BallObj>();
-            if (_rank == temp._rank)
+            if (_rank == temp._rank && _value > temp._value)
             {
                 if (CreateBall._instance._isReady)
                     return;
