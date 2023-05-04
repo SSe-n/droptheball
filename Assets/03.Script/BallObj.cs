@@ -81,6 +81,11 @@ public class BallObj : MonoBehaviour
                 ball.InitSetData(true);
                 go.transform.position = transform.position;
 
+                if (RuleManager._instance._time + _rank >= RuleManager._instance._maxTime)
+                    RuleManager._instance._time = RuleManager._instance._maxTime;
+                else
+                    RuleManager._instance._time += _rank;
+
                 Destroy(gameObject);
             }
         }
