@@ -57,6 +57,8 @@ public class BallObj : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
+        if (other == null)
+            return;
         if (other.gameObject.tag == "Ball")
         {
             BallObj temp = other.GetComponent<BallObj>();
@@ -74,7 +76,7 @@ public class BallObj : MonoBehaviour
                 RuleManager._instance._score += 10 * _rank;
 
                 Transform t = transform;
-                GameObject go = Instantiate(RuleManager._instance._balls[_rank - 1]);
+                GameObject go = Instantiate(RuleManager._instance._balls[(_rank + 1).ToString()]);
                 go.transform.localScale = Vector3.one;
                 BallObj ball = go.GetComponent<BallObj>();
                 ball._rank = _rank;

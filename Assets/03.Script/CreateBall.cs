@@ -31,22 +31,27 @@ public class CreateBall : MonoBehaviour
     void Update()
     {
         _time += Time.deltaTime;
-        // 공을 들고 있지 않았을 때 버튼다운 시
-        if (Input.GetMouseButtonDown(0) && _time >= RuleManager._reloadTime && Time.timeScale != 0)
+        if (Input.touchCount > 0)
         {
-            ReadyBall();
+            Touch touch = Input.GetTouch(0);
+            // 공을 들고 있지 않았을 때 버튼다운 시
+            if (touch.phase == TouchPhase.Began && _time >= RuleManager._reloadTime && Time.timeScale != 0)
+            {
+                ReadyBall();
+            }
+            // 공을 들고 있을 때 버튼업 시
+            else if (touch.phase == TouchPhase.Ended && _isReady)
+            {
+                ThrowBall();
+                _time = 0;
+            }
+            // 공을 들고있을 때
+            if (_isReady)
+            {
+                _nowball.transform.position = GetScreenPoint();
+            }
         }
-        // 공을 들고 있을 때 버튼업 시
-        else if (Input.GetMouseButtonUp(0) && _isReady)
-        {
-            ThrowBall();
-            _time = 0;
-        }
-        // 공을 들고있을 때
-        if (_isReady)
-        {
-           _nowball.transform.position = GetScreenPoint();
-        }
+
     }
     /// <summary>
     /// 공을 화면상에 준비시킨다.
@@ -56,9 +61,8 @@ public class CreateBall : MonoBehaviour
         if (!_isReady)
         {
             _isReady = true;
-            //int level = LevelPercent();
             int level = LevelPercent();
-            _nowball = Instantiate(RuleManager._instance._balls[level], GetScreenPoint(), Quaternion.LookRotation(Vector3.down));
+            _nowball = Instantiate(RuleManager._instance._balls[(level + 1).ToString()], GetScreenPoint(), Quaternion.LookRotation(Vector3.down));
             _nowball.GetComponent<Rigidbody>().useGravity = false;
             BallObj temp = _nowball.GetComponent<BallObj>();
             temp._rank = level + 1;

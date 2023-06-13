@@ -16,10 +16,11 @@ public class RuleManager : MonoBehaviour
         Balls = 0,
         sdfS
     }
-    public static int _maxLevel = 8;            // 공의 최대 레벨
-    public BallType _ballType;                  // 공의 타입
-    public List<GameObject> _balls;               // 게임 시작시 입힌 스킨의 머티리얼
-    public static float _reloadTime = 0.5f;        // 공의 장전 시간
+    public static int _maxLevel = 12;               // 공의 최대 레벨
+    public BallType _ballType;                      // 공의 타입
+    //public List<GameObject> _balls;               
+    public Dictionary<string, GameObject> _balls;   // 게임 시작시 입힌 스킨의 머티리얼
+    public static float _reloadTime = 0.5f;         // 공의 장전 시간
     public int _score;
 
     public float _maxTime = 25f;            // 최대 시간
@@ -31,10 +32,13 @@ public class RuleManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _balls = new Dictionary<string, GameObject>();  
         GameObject[] go = Resources.LoadAll<GameObject>(_ballType.ToString());
+        Debug.Log(go.Length);
         for (int i = 0; i < go.Length; i++)
         {
-            _balls.Add(go[i]);
+            _balls.Add(go[i].name, go[i]);
+            Debug.Log(go[i].name);
         }
         _time = _maxTime;
     }
