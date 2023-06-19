@@ -11,6 +11,7 @@ public class GameoverManager : MonoBehaviour
     public TextMeshProUGUI score;
     public TextMeshProUGUI coin;
     public GameObject highscore;
+    [SerializeField] CoinManager cm;
     private void OnCollisionEnter(Collision collision)
     {
         gameover.SetActive(true);
@@ -21,7 +22,8 @@ public class GameoverManager : MonoBehaviour
         float s = RuleManager._instance._score;
         score.text = s.ToString();
         //내림
-        coin.text = Mathf.Floor(s / 100).ToString();
+        float coinAmount = Mathf.Floor(s / 100);
+        coin.text = coinAmount.ToString();
 
         //처음하는 게임인지
         PlayerPrefs.SetInt("IsFirst", 1); ;
@@ -49,6 +51,8 @@ public class GameoverManager : MonoBehaviour
         #endregion
 
         #region 코인 획득
+        cm.GetCoin((int)coinAmount);
+
         if (PlayerPrefs.HasKey("Coin"))
         {
             int coin = PlayerPrefs.GetInt("Coin");
@@ -64,8 +68,9 @@ public class GameoverManager : MonoBehaviour
 
     public void Restart()
     {
-        Time.timeScale = 1;
-        GameObject.Find("SoundManager").GetComponent<SoundManager>().SfxPlay(SoundManager.Sfx.Button);
-        SceneManager.LoadScene(1);
+        cm.GetCoin(10);
+        //Time.timeScale = 1;
+        //GameObject.Find("SoundManager").GetComponent<SoundManager>().SfxPlay(SoundManager.Sfx.Button);
+        //SceneManager.LoadScene(1);
     }
 }
