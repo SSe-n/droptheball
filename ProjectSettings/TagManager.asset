@@ -8,6 +8,7 @@ TagManager:
   - Ball
   - RuleManager
   - Box
+  - GameOver
   layers:
   - Default
   - TransparentFX

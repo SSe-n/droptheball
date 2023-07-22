@@ -13,6 +13,10 @@ public class GameoverManager : MonoBehaviour
     public GameObject highscore;
     private void OnCollisionEnter(Collision collision)
     {
+        GameOver();
+    }
+    public void GameOver()
+    {
         gameover.SetActive(true);
         //일시정지
         Time.timeScale = 0;
@@ -24,44 +28,32 @@ public class GameoverManager : MonoBehaviour
         coin.text = Mathf.Floor(s / 100).ToString();
 
         //처음하는 게임인지
-        PlayerPrefs.SetInt("IsFirst", 1); ;
+        //PlayerPrefs.SetInt("IsFirst", 1); ;
 
         #region 최고 점수 여부
-        if (PlayerPrefs.HasKey("HighScore"))
+        if (s > PlayerInfo._instance._recordScore)
         {
-            int hs = PlayerPrefs.GetInt("HighScore");
-            Debug.Log("high score : " + hs);
-            if (s > hs)
-            {
-                PlayerPrefs.SetInt("HighScore", (int)s);
-                gameover.GetComponent<Animator>().SetTrigger("highScore");
-            }
-            else
-            {
-                highscore.SetActive(false);
-            }
-        }
-        else
-        {
-            PlayerPrefs.SetInt("HighScore", (int)s);
+            PlayerInfo._instance._recordScore = (int)s;
             gameover.GetComponent<Animator>().SetTrigger("highScore");
         }
+        else
+            highscore.SetActive(false);
         #endregion
 
         #region 코인 획득
-        if (PlayerPrefs.HasKey("Coin"))
-        {
-            int coin = PlayerPrefs.GetInt("Coin");
-            coin += (int)Mathf.Floor(s / 100);
-            PlayerPrefs.SetInt("Coin", coin);
-        }
-        else
-        {
-            Mathf.Floor(s / (int)Mathf.Floor(s / 100));
-        }
+        PlayerInfo._instance._coin += (int)Mathf.Floor(s / 100);
+        //if (PlayerPrefs.HasKey("Coin"))
+        //{
+
+        //    //PlayerPrefs.SetInt("Coin", coin);
+        //}
+        //else
+        //{
+        //    Mathf.Floor(s / (int)Mathf.Floor(s / 100));
+        //}
+        PlayerInfo._instance.SaveToJson();
         #endregion
     }
-
     public void Restart()
     {
         Time.timeScale = 1;

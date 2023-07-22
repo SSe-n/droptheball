@@ -38,7 +38,6 @@ public class RuleManager : MonoBehaviour
         for (int i = 0; i < go.Length; i++)
         {
             _balls.Add(go[i].name, go[i]);
-            Debug.Log(go[i].name);
         }
         _time = _maxTime;
     }
@@ -47,6 +46,12 @@ public class RuleManager : MonoBehaviour
         _time -= Time.deltaTime;
         _timeSlider.value = _time / _maxTime;
         _timeText.text = _time.ToString("N1");
+        if (_time < 0)
+        {
+            GameoverManager go = GameObject.FindGameObjectWithTag("GameOver").GetComponent<GameoverManager>();
+            go.GameOver();
+            _time = 0;
+        }
     }
     public void Pause(int t)
     {
